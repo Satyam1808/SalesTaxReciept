@@ -1,12 +1,11 @@
-public class ItemReciept {
-
-    private final Items item;
+public class ReceiptItem {
+    private final Item item;
     private final double tax;
     private final double totalPrice;
 
-    public ItemReciept(Items item) {
+    public ReceiptItem(Item item) {
         this.item = item;
-        this.tax = CalculatorForTax.calculateTax(item);
+        this.tax = item.computeTax();
         this.totalPrice = item.getPrice() + tax;
     }
 
@@ -22,8 +21,7 @@ public class ItemReciept {
         return totalPrice;
     }
 
-    public Items getItem() {
+    public Item getItem() {
         return item;
     }
-
 }

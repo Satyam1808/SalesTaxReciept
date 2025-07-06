@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -6,12 +7,22 @@ public class Main {
         boolean moreReceipts = true;
 
         while (moreReceipts) {
-            Reciept receipt = HandlerInputs.readReceiptFromConsole();
-            RecieptPrinter.printReceipt(receipt);
+            List<String> inputs = InputHandler.readInputsFromConsole();
+
+            Receipt receipt = new Receipt();
+            for (String line : inputs) {
+                try {
+                    Item item = PurchaseParser.parseItem(line);
+                    receipt.addItem(new ReceiptItem(item));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            ReceiptPrinter.printReceipt(receipt);
 
             System.out.println("Add another receipt? (yes/no)");
-            String response = scanner.nextLine();
-            moreReceipts = response.equalsIgnoreCase("yes");
+            moreReceipts = scanner.nextLine().equalsIgnoreCase("yes");
         }
 
         System.out.println("Thank you. Exiting.");
