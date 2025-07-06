@@ -5,7 +5,7 @@ A simple Java console application to calculate sales taxes and print formatted r
 ## How to Run
 1. Clone the repository  
 2. Open in IntelliJ IDEA  
-3. Run `SalesTaxApp.java`
+3. Run `Main.java`
 
 ## Features
 - Console-based input
