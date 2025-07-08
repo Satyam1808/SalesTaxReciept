@@ -3,9 +3,9 @@ public class ReceiptItem {
     private final double tax;
     private final double totalPrice;
 
-    public ReceiptItem(Item item) {
+    public ReceiptItem(Item item, double tax) {
         this.item = item;
-        this.tax = item.computeTax();
+        this.tax = tax;
         this.totalPrice = item.getPrice() + tax;
     }
 

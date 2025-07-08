@@ -1,20 +1,24 @@
 public class TaxCalculator {
+    private final double basicSalesTax;
+    private final double importDuty;
 
-    private static final double BASIC_SALES_TAX = 0.10;
-    private static final double IMPORT_DUTY = 0.05;
+    public TaxCalculator(double basicSalesTax, double importDuty) {
+        this.basicSalesTax = basicSalesTax;
+        this.importDuty = importDuty;
+    }
 
-    public static double calculateTax(Item item) {
+    public double calculateTax(Item item) {
         double tax = 0.0;
         if (!item.isExempt()) {
-            tax += item.getPrice() * BASIC_SALES_TAX;
+            tax += item.getPrice() * basicSalesTax;
         }
         if (item.isImported()) {
-            tax += item.getPrice() * IMPORT_DUTY;
+            tax += item.getPrice() * importDuty;
         }
         return roundTax(tax);
     }
 
-    private static double roundTax(double amount) {
+    private double roundTax(double amount) {
         return Math.ceil(amount * 20.0) / 20.0;
     }
 }

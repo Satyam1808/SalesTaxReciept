@@ -4,8 +4,13 @@ import java.util.regex.Pattern;
 
 public class PurchaseParser {
     private static final List<String> EXEMPT_KEYWORDS = List.of("book", "chocolate", "pill");
+    private final TaxCalculator taxCalculator;
 
-    public static Item parseItem(String input) {
+    public PurchaseParser(TaxCalculator taxCalculator) {
+        this.taxCalculator = taxCalculator;
+    }
+
+    public ReceiptItem parseLine(String input) {
         Pattern pattern = Pattern.compile("(\\d+) (.*) at (\\d+\\.\\d{2})");
         Matcher matcher = pattern.matcher(input);
         if (!matcher.matches()) {
@@ -20,10 +25,13 @@ public class PurchaseParser {
 
         name = name.replace("imported ", "");
 
-        return new Item(name, price, isImported, isExempt);
+        Item item = new Item(name, price, isImported, isExempt);
+        double tax = taxCalculator.calculateTax(item);
+
+        return new ReceiptItem(item, tax);
     }
 
-    private static boolean isExemptProduct(String name) {
+    private boolean isExemptProduct(String name) {
         String lower = name.toLowerCase();
         return EXEMPT_KEYWORDS.stream().anyMatch(lower::contains);
     }

@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 
 public class InputHandler {
-    private static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-    public static List<String> readInputsFromConsole() {
+    public List<String> readInputsFromConsole() {
         List<String> inputs = new ArrayList<>();
         System.out.println("Enter your items (type 'done' when finished):");
 

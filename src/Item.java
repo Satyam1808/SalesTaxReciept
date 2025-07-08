@@ -26,8 +26,4 @@ public class Item {
     public boolean isExempt() {
         return exempt;
     }
-
-    public double computeTax() {
-        return TaxCalculator.calculateTax(this);
-    }
 }
